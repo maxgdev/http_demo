@@ -1,71 +1,55 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async'; // async / await functions
-import 'dart:convert'; // parse json sata
 
 void main() {
-  runApp(MyApp());
+  runApp(new MaterialApp(
+    home: new HomePage(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class HomePage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Http Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Http Demo Page'),
-    );
-  }
+  HomePageState createState() => new HomePageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class HomePageState extends State<HomePage> {
+  List data;
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // start of http function
   Future<String> getData() async {
     var response = await http.get(
         Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
         headers: {"Accept": "application/json"});
-    // print(response.body);
-    // print(response.body.length);
 
-    List jsonData = jsonDecode(response.body);
-    // print(jsonData.length);
-    // print(jsonData[0]);
-    print(jsonData[3]['id']);
-    print(jsonData[3]['title']);
-    
+    this.setState(() {
+      data = jsonDecode(response.body);
+    });
+    print(data[1]["title"]);
+
+    return "Success!";
   }
 
-  // end of http function
+  @override
+  void initState() {
+    super.initState();
+    this.getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Listviews"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Press Button to Get Data'),
-            RaisedButton(
-              onPressed: getData,
-              child: Text('Get Data'),
-            ),
-          ],
-        ),
+      body: new ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Card(
+            child: new Text(data[index]["title"]),
+          );
+        },
       ),
     );
   }
