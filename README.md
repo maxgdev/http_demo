@@ -1,6 +1,6 @@
 # http_demo
 
-A new Flutter project.
+Flutter http demo app. Retrieve and parse json data via http request
 
 ## Getting Started
 
