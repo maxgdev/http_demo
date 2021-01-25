@@ -15,7 +15,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 ## Credits
-Flutter SDK Tutorial - HTTP Requests and REST API (App Development)
+- Flutter SDK Tutorial - HTTP Requests and REST API (App Development)
 https://www.youtube.com/watch?v=m7b7_Nq7XSs
-Flutter SDK Tutorial - Listview with JSON or List data (App Development)
+- Flutter SDK Tutorial - Listview with JSON or List data (App Development)
 https://www.youtube.com/watch?v=-PRrdG163to
